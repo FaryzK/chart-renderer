@@ -28,4 +28,19 @@ export interface LineChartConfig {
   };
   show_legend: boolean;
   responsive: true;
+}
+
+export interface PieChartConfig {
+  id: string;
+  type: 'pie_chart';
+  dataKey: string;
+  categoryKey: string;
+  isDonut: boolean;
+  colors: string[];
+  startAngle: number;
+  showLabels: boolean;
+  labelType: 'percent' | 'absolute';
+  showLabelLines: boolean;
+  showLegend: boolean;
+  responsive: true;
 } 

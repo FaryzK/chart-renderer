@@ -1,5 +1,6 @@
 import { LineChartRenderer } from './components/LineChartRenderer';
-import type { LineChartConfig } from './types/chartConfig';
+import { PieChartRenderer } from './components/PieChartRenderer';
+import type { LineChartConfig, PieChartConfig } from './types/chartConfig';
 import './App.css';
 
 function App() {
@@ -69,6 +70,88 @@ function App() {
     value: Math.floor(Math.random() * (2500 - 1500 + 1) + 1500),
   }));
 
+  const pieChartData = [
+    { name: 'Laptops', value: 400 },
+    { name: 'Desktops', value: 300 },
+    { name: 'Tablets', value: 300 },
+    { name: 'Mobiles', value: 200 },
+  ];
+
+  const pieChartConfig1: PieChartConfig = {
+    id: 'pie_1',
+    type: 'pie_chart',
+    dataKey: 'value',
+    categoryKey: 'name',
+    isDonut: false,
+    colors: ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'],
+    startAngle: 90,
+    showLabels: true,
+    labelType: 'percent',
+    showLabelLines: false,
+    showLegend: true,
+    responsive: true,
+  };
+
+  const pieChartConfig2: PieChartConfig = {
+    id: 'pie_2',
+    type: 'pie_chart',
+    dataKey: 'value',
+    categoryKey: 'name',
+    isDonut: true,
+    colors: ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'],
+    startAngle: 90,
+    showLabels: true,
+    labelType: 'percent',
+    showLabelLines: false,
+    showLegend: true,
+    responsive: true,
+  };
+
+  const pieChartConfig3: PieChartConfig = {
+    id: 'pie_3',
+    type: 'pie_chart',
+    dataKey: 'value',
+    categoryKey: 'name',
+    isDonut: false,
+    colors: ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f'],
+    startAngle: 90,
+    showLabels: true,
+    labelType: 'percent',
+    showLabelLines: false,
+    showLegend: true,
+    responsive: true,
+  };
+
+  const pieChartConfig4: PieChartConfig = {
+    id: 'pie_4',
+    type: 'pie_chart',
+    dataKey: 'value',
+    categoryKey: 'name',
+    isDonut: false,
+    colors: ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'],
+    startAngle: 180,
+    showLabels: true,
+    labelType: 'percent',
+    showLabelLines: false,
+    showLegend: true,
+    responsive: true,
+  };
+
+  const pieChartConfig5: PieChartConfig = {
+    id: 'pie_5',
+    type: 'pie_chart',
+    dataKey: 'value',
+    categoryKey: 'name',
+    isDonut: false,
+    colors: ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'],
+    startAngle: 90,
+    showLabels: true,
+    labelType: 'absolute',
+    showLabelLines: true,
+    showLegend: true,
+    responsive: true,
+  };
+
   return (
     <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
       <h1>Line Chart Examples</h1>
@@ -81,6 +164,23 @@ function App() {
 
       <h2>Example 3: One line, numerical X-axis, with grid, no fill</h2>
       <LineChartRenderer config={example3Config} data={example3Data} />
+
+      <h1>Pie Chart Examples</h1>
+
+      <h2>Example 1: Standard Pie Chart</h2>
+      <PieChartRenderer config={pieChartConfig1} data={pieChartData} />
+
+      <h2>Example 2: Donut Chart</h2>
+      <PieChartRenderer config={pieChartConfig2} data={pieChartData} />
+
+      <h2>Example 3: Different Colors</h2>
+      <PieChartRenderer config={pieChartConfig3} data={pieChartData} />
+
+      <h2>Example 4: Rotation</h2>
+      <PieChartRenderer config={pieChartConfig4} data={pieChartData} />
+
+      <h2>Example 5: Labels with lines and absolute values</h2>
+      <PieChartRenderer config={pieChartConfig5} data={pieChartData} />
     </div>
   );
 }
