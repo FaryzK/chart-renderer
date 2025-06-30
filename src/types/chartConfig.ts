@@ -43,4 +43,23 @@ export interface PieChartConfig {
   showLabelLines: boolean;
   showLegend: boolean;
   responsive: true;
+}
+
+export interface BarChartSeriesConfig {
+  label: string;
+  dataKey: string;
+  color: string;
+}
+
+export interface BarChartConfig {
+  id: string;
+  type: 'bar_chart';
+  layout: 'vertical' | 'horizontal';
+  series: BarChartSeriesConfig[];
+  categoryKey: string;
+  isStacked: boolean;
+  stackType?: 'absolute' | 'percent';
+  showGrid: boolean;
+  showTooltip: boolean;
+  showLegend: boolean;
 } 

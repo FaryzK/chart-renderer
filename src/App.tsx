@@ -1,6 +1,7 @@
 import { LineChartRenderer } from './components/LineChartRenderer';
 import { PieChartRenderer } from './components/PieChartRenderer';
-import type { LineChartConfig, PieChartConfig } from './types/chartConfig';
+import { BarChartRenderer } from './components/BarChartRenderer';
+import type { LineChartConfig, PieChartConfig, BarChartConfig } from './types/chartConfig';
 import './App.css';
 
 function App() {
@@ -76,6 +77,109 @@ function App() {
     { name: 'Tablets', value: 300 },
     { name: 'Mobiles', value: 200 },
   ];
+
+  const barChartData = [
+    { name: 'Jan', value: 2400 },
+    { name: 'Feb', value: 1398 },
+    { name: 'Mar', value: 9800 },
+    { name: 'Apr', value: 3908 },
+    { name: 'May', value: 4800 },
+    { name: 'Jun', value: 3800 },
+    { name: 'Jul', value: 4300 },
+  ];
+
+  const multiSeriesData = [
+    { name: 'Jan', uv: 4000, pv: 2400, amt: 2400 },
+    { name: 'Feb', uv: 3000, pv: 1398, amt: 2210 },
+    { name: 'Mar', uv: 2000, pv: 9800, amt: 2290 },
+    { name: 'Apr', uv: 2780, pv: 3908, amt: 2000 },
+    { name: 'May', uv: 1890, pv: 4800, amt: 2181 },
+    { name: 'Jun', uv: 2390, pv: 3800, amt: 2500 },
+    { name: 'Jul', uv: 3490, pv: 4300, amt: 2100 },
+  ];
+
+  const barChartConfig1: BarChartConfig = {
+    id: 'bar_1',
+    type: 'bar_chart',
+    layout: 'vertical',
+    series: [{ label: 'Value', dataKey: 'value', color: '#8884d8' }],
+    categoryKey: 'name',
+    isStacked: false,
+    showGrid: true,
+    showTooltip: true,
+    showLegend: true,
+  };
+
+  const barChartConfig2: BarChartConfig = {
+    id: 'bar_2',
+    type: 'bar_chart',
+    layout: 'horizontal',
+    series: [{ label: 'Value', dataKey: 'value', color: '#82ca9d' }],
+    categoryKey: 'name',
+    isStacked: false,
+    showGrid: true,
+    showTooltip: true,
+    showLegend: true,
+  };
+
+  const barChartConfig3: BarChartConfig = {
+    id: 'bar_3',
+    type: 'bar_chart',
+    layout: 'vertical',
+    series: [{ label: 'Value', dataKey: 'value', color: '#ffc658' }],
+    categoryKey: 'name',
+    isStacked: false,
+    showGrid: false,
+    showTooltip: false,
+    showLegend: false,
+  };
+
+  const groupedBarConfig: BarChartConfig = {
+    id: 'bar_4',
+    type: 'bar_chart',
+    layout: 'vertical',
+    series: [
+      { label: 'Page Views', dataKey: 'pv', color: '#8884d8' },
+      { label: 'Unique Visitors', dataKey: 'uv', color: '#82ca9d' },
+    ],
+    categoryKey: 'name',
+    isStacked: false,
+    showGrid: true,
+    showTooltip: true,
+    showLegend: true,
+  };
+
+  const stackedBarConfig: BarChartConfig = {
+    id: 'bar_5',
+    type: 'bar_chart',
+    layout: 'vertical',
+    series: [
+      { label: 'Page Views', dataKey: 'pv', color: '#8884d8' },
+      { label: 'Unique Visitors', dataKey: 'uv', color: '#82ca9d' },
+    ],
+    categoryKey: 'name',
+    isStacked: true,
+    stackType: 'absolute',
+    showGrid: true,
+    showTooltip: true,
+    showLegend: true,
+  };
+
+  const percentStackedBarConfig: BarChartConfig = {
+    id: 'bar_6',
+    type: 'bar_chart',
+    layout: 'vertical',
+    series: [
+      { label: 'Page Views', dataKey: 'pv', color: '#8884d8' },
+      { label: 'Unique Visitors', dataKey: 'uv', color: '#82ca9d' },
+    ],
+    categoryKey: 'name',
+    isStacked: true,
+    stackType: 'percent',
+    showGrid: true,
+    showTooltip: true,
+    showLegend: true,
+  };
 
   const pieChartConfig1: PieChartConfig = {
     id: 'pie_1',
@@ -181,6 +285,26 @@ function App() {
 
       <h2>Example 5: Labels with lines and absolute values</h2>
       <PieChartRenderer config={pieChartConfig5} data={pieChartData} />
+
+      <h1>Bar Chart Examples</h1>
+
+      <h2>Example 1: Vertical Bar Chart with Individual Colors</h2>
+      <BarChartRenderer config={barChartConfig1} data={barChartData} />
+
+      <h2>Example 2: Horizontal Bar Chart with Individual Colors</h2>
+      <BarChartRenderer config={barChartConfig2} data={barChartData} />
+
+      <h2>Example 3: Bar Chart without Gridlines, Tooltip, or Legend</h2>
+      <BarChartRenderer config={barChartConfig3} data={barChartData} />
+
+      <h2>Example 4: Grouped Bar Chart</h2>
+      <BarChartRenderer config={groupedBarConfig} data={multiSeriesData} />
+
+      <h2>Example 5: Stacked Bar Chart (Absolute)</h2>
+      <BarChartRenderer config={stackedBarConfig} data={multiSeriesData} />
+
+      <h2>Example 6: Stacked Bar Chart (Percentage)</h2>
+      <BarChartRenderer config={percentStackedBarConfig} data={multiSeriesData} />
     </div>
   );
 }
