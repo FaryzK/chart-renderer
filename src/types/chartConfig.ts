@@ -97,4 +97,20 @@ export interface MixedChartConfig {
     label: string;
   };
   responsive: true;
+}
+
+export interface ScorecardConfig {
+  id: string;
+  type: 'scorecard';
+  title: string;
+  period?: string;
+  valueKey: string;
+  previousValueKey?: string;
+  format?: 'number' | 'currency' | 'percentage';
+  showChange: boolean;
+  colors: {
+    positive: string;
+    negative: string;
+    neutral: string;
+  };
 } 

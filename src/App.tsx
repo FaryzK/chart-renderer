@@ -2,7 +2,8 @@ import { LineChartRenderer } from './components/LineChartRenderer';
 import { PieChartRenderer } from './components/PieChartRenderer';
 import { BarChartRenderer } from './components/BarChartRenderer';
 import { MixedChartRenderer } from './components/MixedChartRenderer';
-import type { LineChartConfig, PieChartConfig, BarChartConfig, MixedChartConfig } from './types/chartConfig';
+import { ScorecardRenderer } from './components/ScorecardRenderer';
+import type { LineChartConfig, PieChartConfig, BarChartConfig, MixedChartConfig, ScorecardConfig } from './types/chartConfig';
 import './App.css';
 
 function App() {
@@ -467,6 +468,115 @@ function App() {
     responsive: true,
   };
 
+  // Scorecard Data and Configs
+  const revenueData = { 
+    current: 24165, 
+    previous: 22800,
+    period: '24 Hours'
+  };
+
+  const conversionData = {
+    current: 3.8,
+    previous: 3.2,
+    period: 'This Month'
+  };
+
+  const customersData = {
+    current: 1247,
+    previous: 1180,
+    period: 'Active Users'
+  };
+
+  const profitData = {
+    current: 45000,
+    previous: 52000,
+    period: 'Monthly'
+  };
+
+  const revenueScorecard: ScorecardConfig = {
+    id: 'scorecard_1',
+    type: 'scorecard',
+    title: 'Total Revenue',
+    period: '24 Hours',
+    valueKey: 'current',
+    previousValueKey: 'previous',
+    format: 'currency',
+    showChange: true,
+    colors: {
+      positive: '#10B981',
+      negative: '#EF4444',
+      neutral: '#6B7280',
+    },
+  };
+
+  const conversionScorecard: ScorecardConfig = {
+    id: 'scorecard_2',
+    type: 'scorecard',
+    title: 'Conversion Rate',
+    period: 'This Month',
+    valueKey: 'current',
+    previousValueKey: 'previous',
+    format: 'percentage',
+    showChange: true,
+    colors: {
+      positive: '#10B981',
+      negative: '#EF4444',
+      neutral: '#6B7280',
+    },
+  };
+
+  const customersScorecard: ScorecardConfig = {
+    id: 'scorecard_3',
+    type: 'scorecard',
+    title: 'Active Customers',
+    period: 'This Month',
+    valueKey: 'current',
+    previousValueKey: 'previous',
+    format: 'number',
+    showChange: true,
+    colors: {
+      positive: '#10B981',
+      negative: '#EF4444',
+      neutral: '#6B7280',
+    },
+  };
+
+  const profitScorecard: ScorecardConfig = {
+    id: 'scorecard_4',
+    type: 'scorecard',
+    title: 'Net Profit',
+    period: 'This Month',
+    valueKey: 'current',
+    previousValueKey: 'previous',
+    format: 'currency',
+    showChange: true,
+    colors: {
+      positive: '#10B981',
+      negative: '#EF4444',
+      neutral: '#6B7280',
+    },
+  };
+
+  const simpleMetricData = {
+    current: 89.5,
+    period: 'Current'
+  };
+
+  const simpleScorecard: ScorecardConfig = {
+    id: 'scorecard_5',
+    type: 'scorecard',
+    title: 'System Health',
+    period: 'Current Status',
+    valueKey: 'current',
+    format: 'percentage',
+    showChange: false,
+    colors: {
+      positive: '#10B981',
+      negative: '#EF4444',
+      neutral: '#6B7280',
+    },
+  };
+
   return (
     <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
       <h1>Line Chart Examples</h1>
@@ -530,6 +640,21 @@ function App() {
 
       <h2>Example 4: Revenue vs Conversion Rate - Dual Y-Axis Different Scales</h2>
       <MixedChartRenderer config={dualAxisConfig} data={dualAxisData} />
+
+      <h1>Scorecard Examples</h1>
+
+      <h2>Example 1: Financial Metrics</h2>
+      <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginBottom: '40px' }}>
+        <ScorecardRenderer config={revenueScorecard} data={revenueData} />
+        <ScorecardRenderer config={profitScorecard} data={profitData} />
+      </div>
+
+      <h2>Example 2: Different Sizes and Formats</h2>
+      <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginBottom: '40px' }}>
+        <ScorecardRenderer config={conversionScorecard} data={conversionData} />
+        <ScorecardRenderer config={customersScorecard} data={customersData} />
+        <ScorecardRenderer config={simpleScorecard} data={simpleMetricData} />
+      </div>
     </div>
   );
 }
