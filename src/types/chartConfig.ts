@@ -62,4 +62,39 @@ export interface BarChartConfig {
   showGrid: boolean;
   showTooltip: boolean;
   showLegend: boolean;
+}
+
+export interface MixedChartSeriesConfig {
+  label: string;
+  dataKey: string;
+  color: string;
+  type: 'line' | 'bar';
+  smooth?: boolean; // Only for line type
+  showPoints?: boolean; // Only for line type
+  yAxisId?: string; // Optional: for dual y-axis support
+}
+
+export interface MixedChartConfig {
+  id: string;
+  type: 'mixed_chart';
+  categoryKey: string;
+  series: MixedChartSeriesConfig[];
+  showGrid: boolean;
+  showTooltip: boolean;
+  showLegend: boolean;
+  x_axis: {
+    show_axis: boolean;
+    show_label: boolean;
+    label: string;
+  };
+  y_axis: {
+    show_axis: boolean;
+    show_label: boolean;
+    label: string;
+  };
+  secondary_y_axis?: {
+    show_label: boolean;
+    label: string;
+  };
+  responsive: true;
 } 

@@ -1,7 +1,8 @@
 import { LineChartRenderer } from './components/LineChartRenderer';
 import { PieChartRenderer } from './components/PieChartRenderer';
 import { BarChartRenderer } from './components/BarChartRenderer';
-import type { LineChartConfig, PieChartConfig, BarChartConfig } from './types/chartConfig';
+import { MixedChartRenderer } from './components/MixedChartRenderer';
+import type { LineChartConfig, PieChartConfig, BarChartConfig, MixedChartConfig } from './types/chartConfig';
 import './App.css';
 
 function App() {
@@ -256,6 +257,216 @@ function App() {
     responsive: true,
   };
 
+  // Mixed Chart Data and Configs
+  const cashflowData = [
+    { month: 'Jan', revenue: 50000, costs: 35000, profit: 15000 },
+    { month: 'Feb', revenue: 52000, costs: 38000, profit: 14000 },
+    { month: 'Mar', revenue: 48000, costs: 42000, profit: 6000 },
+    { month: 'Apr', revenue: 45000, costs: 48000, profit: -3000 },
+    { month: 'May', revenue: 58000, costs: 45000, profit: 13000 },
+    { month: 'Jun', revenue: 62000, costs: 47000, profit: 15000 },
+    { month: 'Jul', revenue: 55000, costs: 43000, profit: 12000 },
+    { month: 'Aug', revenue: 59000, costs: 46000, profit: 13000 },
+  ];
+
+  const cashflowConfig: MixedChartConfig = {
+    id: 'mixed_1',
+    type: 'mixed_chart',
+    categoryKey: 'month',
+    series: [
+      {
+        label: 'Revenue',
+        dataKey: 'revenue',
+        color: '#2ecc71',
+        type: 'line',
+        smooth: true,
+        showPoints: true,
+      },
+      {
+        label: 'Costs',
+        dataKey: 'costs',
+        color: '#e74c3c',
+        type: 'line',
+        smooth: true,
+        showPoints: true,
+      },
+      {
+        label: 'Profit',
+        dataKey: 'profit',
+        color: '#3498db',
+        type: 'bar',
+      },
+    ],
+    showGrid: false,
+    showTooltip: true,
+    showLegend: true,
+    x_axis: {
+      show_axis: true,
+      show_label: true,
+      label: 'Month',
+    },
+    y_axis: {
+      show_axis: true,
+      show_label: true,
+      label: 'Amount ($)',
+    },
+    responsive: true,
+  };
+
+  const salesData = [
+    { quarter: 'Q1', target: 100, actual: 95, growth: 8 },
+    { quarter: 'Q2', target: 120, actual: 115, growth: 12 },
+    { quarter: 'Q3', target: 110, actual: 125, growth: 15 },
+    { quarter: 'Q4', target: 140, actual: 135, growth: 18 },
+  ];
+
+  const salesConfig: MixedChartConfig = {
+    id: 'mixed_2',
+    type: 'mixed_chart',
+    categoryKey: 'quarter',
+    series: [
+      {
+        label: 'Target',
+        dataKey: 'target',
+        color: '#95a5a6',
+        type: 'line',
+        smooth: false,
+        showPoints: false,
+      },
+      {
+        label: 'Actual',
+        dataKey: 'actual',
+        color: '#2ecc71',
+        type: 'line',
+        smooth: false,
+        showPoints: true,
+      },
+      {
+        label: 'Growth %',
+        dataKey: 'growth',
+        color: '#f39c12',
+        type: 'bar',
+      },
+    ],
+    showGrid: true,
+    showTooltip: true,
+    showLegend: true,
+    x_axis: {
+      show_axis: true,
+      show_label: true,
+      label: 'Quarter',
+    },
+    y_axis: {
+      show_axis: true,
+      show_label: true,
+      label: 'Sales / Growth',
+    },
+    responsive: true,
+  };
+
+  const performanceData = [
+    { month: 'Jan', efficiency: 85, errors: 12 },
+    { month: 'Feb', efficiency: 88, errors: 8 },
+    { month: 'Mar', efficiency: 82, errors: 15 },
+    { month: 'Apr', efficiency: 90, errors: 6 },
+    { month: 'May', efficiency: 87, errors: 9 },
+    { month: 'Jun', efficiency: 92, errors: 4 },
+  ];
+
+  const performanceConfig: MixedChartConfig = {
+    id: 'mixed_3',
+    type: 'mixed_chart',
+    categoryKey: 'month',
+    series: [
+      {
+        label: 'Efficiency %',
+        dataKey: 'efficiency',
+        color: '#27ae60',
+        type: 'line',
+        smooth: true,
+        showPoints: true,
+        yAxisId: 'right', // Use right axis for percentage
+      },
+      {
+        label: 'Error Count',
+        dataKey: 'errors',
+        color: '#e67e22',
+        type: 'bar',
+        yAxisId: 'left', // Use left axis for count
+      },
+    ],
+    showGrid: false,
+    showTooltip: true,
+    showLegend: true,
+    x_axis: {
+      show_axis: true,
+      show_label: false,
+      label: '',
+    },
+    y_axis: {
+      show_axis: true,
+      show_label: true,
+      label: 'Error Count',
+    },
+    secondary_y_axis: {
+      show_label: true,
+      label: 'Efficiency %',
+    },
+    responsive: true,
+  };
+
+  // Dual Y-Axis Example - Revenue vs Conversion Rate
+  const dualAxisData = [
+    { month: 'Jan', revenue: 50000, conversionRate: 2.5 },
+    { month: 'Feb', revenue: 52000, conversionRate: 2.8 },
+    { month: 'Mar', revenue: 48000, conversionRate: 2.3 },
+    { month: 'Apr', revenue: 58000, conversionRate: 3.1 },
+    { month: 'May', revenue: 62000, conversionRate: 3.4 },
+    { month: 'Jun', revenue: 55000, conversionRate: 2.9 },
+  ];
+
+  const dualAxisConfig: MixedChartConfig = {
+    id: 'mixed_4',
+    type: 'mixed_chart',
+    categoryKey: 'month',
+    series: [
+      {
+        label: 'Revenue',
+        dataKey: 'revenue',
+        color: '#3498db',
+        type: 'bar',
+        yAxisId: 'left', // Revenue uses left axis (thousands)
+      },
+      {
+        label: 'Conversion Rate',
+        dataKey: 'conversionRate',
+        color: '#e74c3c',
+        type: 'line',
+        smooth: true,
+        showPoints: true,
+        yAxisId: 'right', // Conversion rate uses right axis (percentage)
+      },
+    ],
+    showGrid: true,
+    showTooltip: true,
+    showLegend: true,
+    x_axis: {
+      show_axis: true,
+      show_label: true,
+      label: 'Month',
+    },
+    y_axis: {
+      show_axis: true,
+      show_label: true,
+      label: 'Revenue ($)',
+    },
+    secondary_y_axis: {
+      show_label: true,
+      label: 'Conversion Rate (%)',
+    },
+    responsive: true,
+  };
+
   return (
     <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
       <h1>Line Chart Examples</h1>
@@ -305,6 +516,20 @@ function App() {
 
       <h2>Example 6: Stacked Bar Chart (Percentage)</h2>
       <BarChartRenderer config={percentStackedBarConfig} data={multiSeriesData} />
+
+      <h1>Mixed Chart Examples</h1>
+
+      <h2>Example 1: Cashflow Analysis - Revenue & Costs (Lines) + Profit (Bars)</h2>
+      <MixedChartRenderer config={cashflowConfig} data={cashflowData} />
+
+      <h2>Example 2: Sales Performance - Target & Actual (Lines) + Growth (Bars)</h2>
+      <MixedChartRenderer config={salesConfig} data={salesData} />
+
+      <h2>Example 3: System Performance - Efficiency (Line) + Errors (Bars) with Dual Y-Axis</h2>
+      <MixedChartRenderer config={performanceConfig} data={performanceData} />
+
+      <h2>Example 4: Revenue vs Conversion Rate - Dual Y-Axis Different Scales</h2>
+      <MixedChartRenderer config={dualAxisConfig} data={dualAxisData} />
     </div>
   );
 }
