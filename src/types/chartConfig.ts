@@ -113,4 +113,37 @@ export interface ScorecardConfig {
     negative: string;
     neutral: string;
   };
+}
+
+export interface TableColumnConfig {
+  key: string;
+  header: string;
+  width?: string;
+  align?: 'left' | 'center' | 'right';
+  format?: 'text' | 'number' | 'currency' | 'percentage' | 'date';
+  sortable?: boolean;
+}
+
+export interface TableConfig {
+  id: string;
+  type: 'table';
+  columns: TableColumnConfig[];
+  showHeader: boolean;
+  striped?: boolean;
+  bordered?: boolean;
+  compact?: boolean;
+  sortable?: boolean;
+  pagination?: {
+    enabled: boolean;
+    pageSize: number;
+    showPageInfo: boolean;
+  };
+  styling: {
+    headerBg: string;
+    headerText: string;
+    rowBg: string;
+    rowAltBg: string;
+    rowText: string;
+    borderColor: string;
+  };
 } 

@@ -3,7 +3,8 @@ import { PieChartRenderer } from './components/PieChartRenderer';
 import { BarChartRenderer } from './components/BarChartRenderer';
 import { MixedChartRenderer } from './components/MixedChartRenderer';
 import { ScorecardRenderer } from './components/ScorecardRenderer';
-import type { LineChartConfig, PieChartConfig, BarChartConfig, MixedChartConfig, ScorecardConfig } from './types/chartConfig';
+import { TableRenderer } from './components/TableRenderer';
+import type { LineChartConfig, PieChartConfig, BarChartConfig, MixedChartConfig, ScorecardConfig, TableConfig } from './types/chartConfig';
 import './App.css';
 
 function App() {
@@ -577,6 +578,131 @@ function App() {
     },
   };
 
+  // Table Data and Configs
+  const salesTableData = [
+    { id: 1, product: 'iPhone 15', category: 'Electronics', price: 999, units: 45, revenue: 44955, growth: 12.5 },
+    { id: 2, product: 'MacBook Pro', category: 'Electronics', price: 2399, units: 23, revenue: 55177, growth: -3.2 },
+    { id: 3, product: 'AirPods Pro', category: 'Electronics', price: 249, units: 89, revenue: 22161, growth: 18.7 },
+    { id: 4, product: 'iPad Air', category: 'Electronics', price: 599, units: 34, revenue: 20366, growth: 8.1 },
+    { id: 5, product: 'Apple Watch', category: 'Electronics', price: 399, units: 67, revenue: 26733, growth: 15.3 },
+  ];
+
+  const employeeTableData = [
+    { id: 1, name: 'John Smith', department: 'Engineering', role: 'Senior Developer', salary: 95000, joinDate: '2022-03-15', performance: 92.5 },
+    { id: 2, name: 'Sarah Johnson', department: 'Marketing', role: 'Marketing Manager', salary: 78000, joinDate: '2021-07-22', performance: 87.8 },
+    { id: 3, name: 'Mike Chen', department: 'Engineering', role: 'Lead Developer', salary: 110000, joinDate: '2020-11-08', performance: 94.2 },
+    { id: 4, name: 'Emily Davis', department: 'Sales', role: 'Sales Director', salary: 105000, joinDate: '2019-05-14', performance: 89.6 },
+    { id: 5, name: 'Alex Rodriguez', department: 'Engineering', role: 'Full Stack Developer', salary: 85000, joinDate: '2023-01-10', performance: 91.3 },
+    { id: 6, name: 'Lisa Wang', department: 'Design', role: 'UX Designer', salary: 72000, joinDate: '2022-09-03', performance: 88.4 },
+    { id: 7, name: 'David Brown', department: 'Sales', role: 'Account Executive', salary: 65000, joinDate: '2023-06-20', performance: 85.7 },
+    { id: 8, name: 'Maria Garcia', department: 'Marketing', role: 'Content Specialist', salary: 58000, joinDate: '2022-12-01', performance: 90.1 },
+  ];
+
+  const basicTableConfig: TableConfig = {
+    id: 'table_1',
+    type: 'table',
+    columns: [
+      { key: 'product', header: 'Product', width: '200px', align: 'left' },
+      { key: 'category', header: 'Category', width: '120px', align: 'center' },
+      { key: 'price', header: 'Price', width: '100px', align: 'right', format: 'currency' },
+      { key: 'units', header: 'Units Sold', width: '100px', align: 'right', format: 'number' },
+      { key: 'revenue', header: 'Revenue', width: '120px', align: 'right', format: 'currency' },
+      { key: 'growth', header: 'Growth', width: '100px', align: 'right', format: 'percentage' },
+    ],
+    showHeader: true,
+    striped: true,
+    bordered: false,
+    compact: false,
+    sortable: false,
+    styling: {
+      headerBg: '#374151',
+      headerText: '#F9FAFB',
+      rowBg: '#1F2937',
+      rowAltBg: '#374151',
+      rowText: '#F9FAFB',
+      borderColor: '#4B5563',
+    },
+  };
+
+  const sortableTableConfig: TableConfig = {
+    id: 'table_2',
+    type: 'table',
+    columns: [
+      { key: 'name', header: 'Employee Name', width: '180px', align: 'left' },
+      { key: 'department', header: 'Department', width: '120px', align: 'center' },
+      { key: 'role', header: 'Role', width: '160px', align: 'left' },
+      { key: 'salary', header: 'Salary', width: '100px', align: 'right', format: 'currency' },
+      { key: 'joinDate', header: 'Join Date', width: '100px', align: 'center', format: 'date' },
+      { key: 'performance', header: 'Performance', width: '100px', align: 'right', format: 'percentage' },
+    ],
+    showHeader: true,
+    striped: false,
+    bordered: true,
+    compact: false,
+    sortable: true,
+    styling: {
+      headerBg: '#1E40AF',
+      headerText: '#FFFFFF',
+      rowBg: '#FFFFFF',
+      rowAltBg: '#F3F4F6',
+      rowText: '#111827',
+      borderColor: '#D1D5DB',
+    },
+  };
+
+  const paginatedTableConfig: TableConfig = {
+    id: 'table_3',
+    type: 'table',
+    columns: [
+      { key: 'name', header: 'Name', width: '150px', align: 'left' },
+      { key: 'department', header: 'Dept', width: '100px', align: 'center' },
+      { key: 'salary', header: 'Salary', width: '100px', align: 'right', format: 'currency' },
+      { key: 'performance', header: 'Score', width: '80px', align: 'right', format: 'percentage' },
+    ],
+    showHeader: true,
+    striped: true,
+    bordered: false,
+    compact: true,
+    sortable: true,
+    pagination: {
+      enabled: true,
+      pageSize: 5,
+      showPageInfo: true,
+    },
+    styling: {
+      headerBg: '#065F46',
+      headerText: '#FFFFFF',
+      rowBg: '#ECFDF5',
+      rowAltBg: '#D1FAE5',
+      rowText: '#065F46',
+      borderColor: '#A7F3D0',
+    },
+  };
+
+  const compactTableConfig: TableConfig = {
+    id: 'table_4',
+    type: 'table',
+    columns: [
+      { key: 'product', header: 'Product', align: 'left' },
+      { key: 'units', header: 'Units', align: 'right', format: 'number' },
+      { key: 'revenue', header: 'Revenue', align: 'right', format: 'currency' },
+      { key: 'growth', header: 'Growth %', align: 'right', format: 'percentage' },
+    ],
+    showHeader: true,
+    striped: false,
+    bordered: true,
+    compact: true,
+    sortable: false,
+    styling: {
+      headerBg: '#7C2D12',
+      headerText: '#FFFFFF',
+      rowBg: '#FEF2F2',
+      rowAltBg: '#FEE2E2',
+      rowText: '#7C2D12',
+      borderColor: '#FECACA',
+    },
+  };
+
   return (
     <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
       <h1>Line Chart Examples</h1>
@@ -654,6 +780,28 @@ function App() {
         <ScorecardRenderer config={conversionScorecard} data={conversionData} />
         <ScorecardRenderer config={customersScorecard} data={customersData} />
         <ScorecardRenderer config={simpleScorecard} data={simpleMetricData} />
+      </div>
+
+      <h1>Table Examples</h1>
+
+      <h2>Example 1: Sales Data Table - Basic with Formatting</h2>
+      <div style={{ marginBottom: '40px' }}>
+        <TableRenderer config={basicTableConfig} data={salesTableData} />
+      </div>
+
+      <h2>Example 2: Employee Table - Sortable with Borders</h2>
+      <div style={{ marginBottom: '40px' }}>
+        <TableRenderer config={sortableTableConfig} data={employeeTableData} />
+      </div>
+
+      <h2>Example 3: Paginated Employee Table - Compact with Pagination</h2>
+      <div style={{ marginBottom: '40px' }}>
+        <TableRenderer config={paginatedTableConfig} data={employeeTableData} />
+      </div>
+
+      <h2>Example 4: Compact Sales Summary</h2>
+      <div style={{ marginBottom: '40px' }}>
+        <TableRenderer config={compactTableConfig} data={salesTableData} />
       </div>
     </div>
   );
